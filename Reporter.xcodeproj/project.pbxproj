@@ -16,6 +16,7 @@
 		002E68791D66DCDB00C31E85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 002E68771D66DCDB00C31E85 /* LaunchScreen.storyboard */; };
 		002E68841D66DCDC00C31E85 /* ReporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E68831D66DCDC00C31E85 /* ReporterTests.m */; };
 		002E688F1D66DCDC00C31E85 /* ReporterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E688E1D66DCDC00C31E85 /* ReporterUITests.m */; };
+		002E689E1D66E86900C31E85 /* WBLeakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 002E689D1D66E86900C31E85 /* WBLeakViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		002E688A1D66DCDC00C31E85 /* ReporterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReporterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		002E688E1D66DCDC00C31E85 /* ReporterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReporterUITests.m; sourceTree = "<group>"; };
 		002E68901D66DCDC00C31E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		002E689C1D66E86900C31E85 /* WBLeakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBLeakViewController.h; sourceTree = "<group>"; };
+		002E689D1D66E86900C31E85 /* WBLeakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBLeakViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,8 @@
 				002E686A1D66DCDB00C31E85 /* AppDelegate.m */,
 				002E686C1D66DCDB00C31E85 /* ViewController.h */,
 				002E686D1D66DCDB00C31E85 /* ViewController.m */,
+				002E689C1D66E86900C31E85 /* WBLeakViewController.h */,
+				002E689D1D66E86900C31E85 /* WBLeakViewController.m */,
 				002E686F1D66DCDB00C31E85 /* Main.storyboard */,
 				002E68751D66DCDB00C31E85 /* Assets.xcassets */,
 				002E68771D66DCDB00C31E85 /* LaunchScreen.storyboard */,
@@ -153,6 +158,7 @@
 				002E685F1D66DCDB00C31E85 /* Sources */,
 				002E68601D66DCDB00C31E85 /* Frameworks */,
 				002E68611D66DCDB00C31E85 /* Resources */,
+				002E689F1D66EA3100C31E85 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -268,6 +274,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		002E689F1D66EA3100C31E85 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		002E685F1D66DCDB00C31E85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -275,6 +297,7 @@
 			files = (
 				002E68741D66DCDB00C31E85 /* Reporter.xcdatamodeld in Sources */,
 				002E686E1D66DCDB00C31E85 /* ViewController.m in Sources */,
+				002E689E1D66E86900C31E85 /* WBLeakViewController.m in Sources */,
 				002E686B1D66DCDB00C31E85 /* AppDelegate.m in Sources */,
 				002E68681D66DCDB00C31E85 /* main.m in Sources */,
 			);
@@ -419,10 +442,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Reporter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cisco.Reporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
 			name = Debug;
 		};
@@ -430,10 +456,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Reporter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cisco.Reporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
 			name = Release;
 		};
