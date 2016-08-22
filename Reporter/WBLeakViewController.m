@@ -22,6 +22,8 @@
     UIInterfaceOrientation rrientation = self.interfaceOrientation;
     
     NSString *str1 = [[NSString alloc] initWithFormat:@""];
+    NSString *str2 = [[NSString alloc] initWithFormat:@""];
+    NSString *str3 = [[NSString alloc] initWithFormat:@""];
     NSLog(@"str1:%@",str1);
 }
 
